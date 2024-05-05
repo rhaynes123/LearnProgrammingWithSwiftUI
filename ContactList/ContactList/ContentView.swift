@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-
+import SwiftData
 struct ContentView: View {
     // example of arrays
-    let contacts : [Contact] = [
-        Contact(firstname: "Robert", middleName: nil, lastName: "Martin", birthDay: makeBirthDate(year: 1950, month: 12, day: 5), number: "313-558-2642")
-    ]
+    @Environment(\.modelContext) private var context
+    @Query
+    private var contacts : [Contact]
     
     @State private var showForm : Bool = false
     var body: some View {
@@ -46,5 +46,8 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    let container = try! ModelContainer(for: Contact.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    let sample = Contact(firstname: "Robert", middleName: nil, lastName: "Martin", birthDay: makeBirthDate(year: 1950, month: 12, day: 5), number: "313-558-2642")
+    container.mainContext.insert(sample)
+    return ContentView().modelContainer(container)
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 // example of functions
 func makeBirthDate(year: Int, month: Int, day: Int) -> Date? {
     // example of variables
@@ -14,13 +15,22 @@ func makeBirthDate(year: Int, month: Int, day: Int) -> Date? {
     return date
 }
 // example of structs
-struct Contact: Identifiable {
+@Model
+class Contact: Identifiable {
     let id: UUID = UUID()
     let firstname: String
     let middleName: String?
     let lastName: String
     let birthDay: Date?
     let number: String
+    
+    init(firstname: String, middleName: String?, lastName: String, birthDay: Date?, number: String) {
+        self.firstname = firstname
+        self.middleName = middleName
+        self.lastName = lastName
+        self.birthDay = birthDay
+        self.number = number
+    }
     
     func getFullName() -> String {
         guard let middleName = self.middleName else {

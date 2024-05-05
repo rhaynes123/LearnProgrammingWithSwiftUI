@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct AddContactView: View {
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @State private var firstname: String = ""
     @State private var middlename: String = ""
     @State private var lastname: String = ""
     @State private var phoneNumber: String = ""
     @State private var birthdate: Date = Date()
+    private func saveContact() {
+        let newContact = Contact(firstname: self.firstname, middleName: self.middlename, lastName: self.lastname, birthDay: self.birthdate, number: self.phoneNumber)
+        context.insert(newContact)
+        
+    }
     var body: some View {
         Form {
             Section {
@@ -33,8 +39,15 @@ struct AddContactView: View {
             
         }
         
-        Button("Save"){
-            dismiss()
+        HStack{
+            Button("Save"){
+                saveContact()
+                dismiss()
+            }
+            
+            Button("Cancel"){
+                dismiss()
+            }
         }
     }
 }
