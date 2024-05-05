@@ -44,10 +44,13 @@ class Contact: Identifiable {
         guard let date = self.birthDay else {
             return false
         }
+        let calendar = Calendar.current
         
         let today = Date()
+        let interval = calendar.dateComponents([.year], from: date, to: today)
         // example of conditionals (if)
-        if today.timeIntervalSince(date) < 18 {
+        
+        if interval.year! < 18 {
             return false
         }
         return true

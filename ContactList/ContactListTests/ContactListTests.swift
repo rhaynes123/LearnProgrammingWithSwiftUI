@@ -25,13 +25,13 @@ final class ContactListTests: XCTestCase {
     }
     
     func testCanNotDrinkBecauseThereIsNoBirthday() throws {
-        let contact = Contact(firstname: "Robert", middleName: nil, lastName: "Martin", birthDay: makeBirthDate(year: 1991, month: 3, day: 5), number: "313-558-2642")
+        let contact = Contact(firstname: "Robert", middleName: nil, lastName: "Martin", birthDay: nil, number: "313-558-2642")
         let candrink = contact.canDrink()
         XCTAssertFalse(candrink)
     }
     
     func testCanNotDrinkBecauseTooYoung() throws {
-        let contact = Contact(firstname: "Robert", middleName: nil, lastName: "Martin", birthDay: makeBirthDate(year: 1991, month: 3, day: 5), number: "313-558-2642")
+        let contact = Contact(firstname: "Robert", middleName: nil, lastName: "Martin", birthDay: Date(), number: "313-558-2642")
         let candrink = contact.canDrink()
         XCTAssertFalse(candrink)
     }
